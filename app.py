@@ -4,7 +4,9 @@ import pickle
 import json
 from database import database
 
+
 clf = pickle.load(open("model/classifier.pkl", "rb"))
+
 
 app = Flask(__name__)
 
@@ -12,7 +14,7 @@ app = Flask(__name__)
 @app.route("/")
 def greeting() -> str:
     """Initial message"""
-    return 'Turing24 Project'
+    return "Turing24 Project"
 
 
 @app.route("/predict", methods=["POST"])
@@ -28,12 +30,14 @@ def predict() -> (str, int):
 
     try:
         predictions = clf.predict(input_params)
-        predicted_prices = [price*1000 for price in predictions.tolist()]
+        predicted_prices = [price * 1000 for price in predictions.tolist()]
     except Exception as err:
         return json.dumps({"Error": f"Prediction failed. Message: {err}"}), 500
 
-    database.insert_in_table(json.dumps({"features": request_data}),
-                             json.dumps({"Predicted values": predicted_prices}))
+    database.insert_in_table(
+        json.dumps({"features": request_data}),
+        json.dumps({"Predicted values": predicted_prices}),
+    )
 
     return json.dumps({"Predicted values": predicted_prices})
 

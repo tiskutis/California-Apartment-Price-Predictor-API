@@ -15,24 +15,26 @@ def preprocessing(data: pd.DataFrame) -> pd.DataFrame:
     :return: modified pandas dataframe
     """
     data_copy = data
-    data_copy.drop(['Unnamed: 0', 'Type', 'Lot size (acres)'], axis=1, inplace=True)
+    data_copy.drop(["Unnamed: 0", "Type", "Lot size (acres)"], axis=1, inplace=True)
     data_copy.dropna(inplace=True)
-    data_copy['Price'] = data_copy['Price'].div(1000)
+    data_copy["Price"] = data_copy["Price"].div(1000)
 
     return data_copy
 
 
-df = pd.read_csv('../data/California Housing.csv')
+df = pd.read_csv("../data/California Housing.csv")
 df_copy = preprocessing(df)
 
-features = df_copy.drop(['Price'], 1)
-label = np.round(df_copy['Price'])
+features = df_copy.drop(["Price"], 1)
+label = np.round(df_copy["Price"])
 
 std = StandardScaler()
 lr = LinearRegression()
 
 features = std.fit_transform(features)
-X_train, X_test, y_train, y_test = train_test_split(features, label, test_size=0.1, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    features, label, test_size=0.1, random_state=42
+)
 lr.fit(X_train, y_train)
 
 with open("classifier.pkl", "wb") as cl_file:
