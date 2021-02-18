@@ -1,4 +1,4 @@
-📦 Flask API 
+📦 Apartment Price Predictor API
 ============
 
 This repository contains basic API created with Flask, containing linear regression model, trained on custom-scraped
