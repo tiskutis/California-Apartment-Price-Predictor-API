@@ -4,6 +4,8 @@
 This repository contains basic API created with Flask, containing linear regression model, trained on custom-scraped
 California houses dataset, and connection to the database, hosted on Heroku.
 
+Custom scraper can be found [here](https://github.com/tiskutis/California-Housing-Scraper).
+
 Available endpoints: 
 - main page ("/")
 - predictions ("/predict") 
